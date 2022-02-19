@@ -1,5 +1,4 @@
-# dev_study
-개발지식 공부 저장소
+# :computer: 개발 공부 저장소
 
 ### 객체지향(OOP: Object-Oriented Programming)
 - 객체지향의 사실과 오해
