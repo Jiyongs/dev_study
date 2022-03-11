@@ -67,26 +67,26 @@ spark의 핵심 데이터 구조
 ```
 RDD.map(<task>)
 ```
-Data-Parallel? 데이터를 여러 개로 쪼개고, 여러 스레드에서 각자 task를 적용하며, 각자 만든 결과 값을 합치는 과정
-Distributed Data-Parallel? 데이터를 여러 개로 쪼개서 여러 노드로 보낸다. 여러 노드에서 각자 독립적으로 task를 적용하며, 각자 만든 결과 값을 합치는 과정   
-=> spark는 분산된 환경에서도 일반적인 병렬처리를 하듯 코드를 짜는 것이 가능하다.
-=> spark는 RDD를 통해 분산 환경에서 데이터 분산 모델을 구현해 추상화 시켜주기 때문이다.   
+Data-Parallel? 데이터를 여러 개로 쪼개고, 여러 스레드에서 각자 task를 적용하며, 각자 만든 결과 값을 합치는 과정  
+Distributed Data-Parallel? 데이터를 여러 개로 쪼개서 여러 노드로 보낸다. 여러 노드에서 각자 독립적으로 task를 적용하며, 각자 만든 결과 값을 합치는 과정    
+=> spark는 분산된 환경에서도 일반적인 병렬처리를 하듯 코드를 짜는 것이 가능하다.   
+=> spark는 RDD를 통해 분산 환경에서 데이터 분산 모델을 구현해 추상화 시켜주기 때문이다.    
 => 단, 노드 간 통신 속도를 신경써서 코드를 짜야 성능을 끌어올릴 수 있다.
 
 ### 분산처리 문제
-1. 부분 실패 : 노드 몇 개가 프로그램과 상관 없는 이유로 인해 실패
-2. 속도 : 많은 네트워크 통신을 필요로 하는 작업은 속도가 저하 됨
+1. 부분 실패 : 노드 몇 개가 프로그램과 상관 없는 이유로 인해 실패   
+2. 속도 : 많은 네트워크 통신을 필요로 하는 작업은 속도가 저하 됨   
 ```
 RDD.map(A).filter(B).reduceByKey(C).take(100)
 RDD.map(A).reduceByKey(C).filter(B).take(100)
 ```
 reduceByKey()함수는 여러 노드 간 통신을 일으키는 함수로, filter()를 통해 데이터 건수를 줄여 수행하는 것이 더 빠르다.   
-일반적인 연산속도 : 메모리 > 디스크 > 네트워크 (네트워크는 메모리 연산에 비해 100만배 느리다)
+일반적인 연산속도 : 메모리 > 디스크 > 네트워크 (네트워크는 메모리 연산에 비해 100만배 느리다)   
 => spark를 통해 RDD 뒷단에서 어떻게 연산이 수행될지 예측하며 코드를 짜야 성능을 끌어올릴 수 있다.
 
 ### Structured Data와 RDD
-1. Single Value RDD : 텍스트에 등장하는 단어 수 세기 등 일차원 연산
-2. Key-Value RDD
+1. Single Value RDD : 텍스트에 등장하는 단어 수 세기 등 일차원 연산   
+2. Key-Value RDD   
     - (Key, Value) 쌍을 갖기 때문에 Pairs RDD 라고도 한다.
     - 간단한 데이터베이스처럼 다룰 수 있다.
     - 넷플릭스 드라마가 받은 평균 별점 등 고차원 연산
@@ -102,8 +102,8 @@ reduceByKey()함수는 여러 노드 간 통신을 일으키는 함수로, filte
     keys()        : Key 값 추출
     values()      : Value 값 추출
     ```
-    - Key-Value 연산에서 Key는 바꾸지 않고 Value에 대한 연산만 수행하는 경우, map()이 아닌 mapValue()를 쓰는 것이 효율적이다
-      => spark 내부에서 파티션을 유지할 수 있기 때문
+    - Key-Value 연산에서 Key는 바꾸지 않고 Value에 대한 연산만 수행하는 경우, map()이 아닌 mapValue()를 쓰는 것이 효율적이다.   
+      => spark 내부에서 파티션을 유지할 수 있기 때문이다.      
       => mapValue(), flatMapValue() 는 모두 Value만 다루지만 RDD에서 Key는 유지된다.
     
 ### RDD Transformations and Actions
@@ -164,8 +164,8 @@ reduceByKey()함수는 여러 노드 간 통신을 일으키는 함수로, filte
 
 -------------------
 ### practice
-- Key-Value RDD : category-review-average.ipynb
-- Transformations And Actions : rdd-transformations-actions.ipynb
+- Key-Value RDD : [category-review-average.ipynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/category-review-average.ipynb)
+- Transformations And Actions : [rdd-transformations-actions.ipynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/rdd-transformations-actions.ipynb)
 
 ### Reference
 - '실시간 빅데이터 처리를 위한 Spark & Flink Oline' 강의 (Part 2)
