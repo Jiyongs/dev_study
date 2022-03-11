@@ -163,7 +163,7 @@ reduceByKey()함수는 여러 노드 간 통신을 일으키는 함수로, filte
    ```
 
 -------------------
-### practice
+### Practice
 - Key-Value RDD : [category-review-average.ipynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/category-review-average.ipynb)
 - Transformations And Actions : [rdd-transformations-actions.ipynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/rdd-transformations-actions.ipynb)
 
