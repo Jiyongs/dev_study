@@ -11,4 +11,5 @@
   - [7. 함께 모으기](https://github.com/Jiyongs/dev_study/blob/master/oop/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%EC%9D%98_%EC%82%AC%EC%8B%A4%EA%B3%BC_%EC%98%A4%ED%95%B4_7.md)
 
 ### 빅데이터 처리
-- [Apache Spark](https://github.com/Jiyongs/dev_study/blob/master/bigdata/apache_spark.md)
+- Apache Spark
+  - [Apache Spark와 병렬분산처리](https://github.com/Jiyongs/dev_study/blob/master/bigdata/apache_spark.md)
