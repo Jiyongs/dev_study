@@ -163,6 +163,65 @@ reduceByKey()함수는 여러 노드 간 통신을 일으키는 함수로, filte
    ```
 
 -------------------
+### Transformations와 Actions는 왜 나뉘었을까?
+연산을 지연시킴으로서 메모리를 최대한 활용하여 디스크/네트워크 연산을 최소화 할 수 있다.
+```
+task -> disk -> task -> disk ...
+```
+데이터를 다루는 task는 반복되는 경우가 많다.   
+위와 같이 작업이 끝날 때마다 결과를 disk에 저장하는 것은 비효율적이다.   
+```
+task -> task -> ...
+```
+작업에서 다른 작업으로 넘어가는 것이 효율적인데, 이를 위해 in-memory 연산이 필요하다.   
+이 때, 어떤 데이터를 메모리에 남겨야 할 지 알아야 하는데, Transformations는 지연 실행되기 때문에 메모리에 저장이 가능해서 편하다.   
+
+### Cache와 Persist
+데이터를 메모리에 저장해주는 Transformations 연산
+```
+Cache
+- 디폴트 Storage Level 사용
+- RDD : MEMORY_ONLY
+- DF  : MEMORY_AND_DISK
+```
+```
+Persist
+- 원하는 Storage Level 지정 가능
+```
+
+### Spark Cluster 내부구조
+Spark는 Master와 Worker Topology(네트워크 구성)로 구성된다.   
+때문에 데이터가 항상 여러 곳에 분산되어 있으며, 같은 연산이어도 여러 노드에 걸쳐 실행된다는 점을 기억해야 한다.   
+<img width="700" alt="image" src="https://user-images.githubusercontent.com/28644251/158402339-8038f93d-c6d0-4ed5-857d-6f694f5684a4.png">     
+Driver Program은 Master Node이며 Spark Context 가 있는 곳이다.  
+Spark Context는 새로운 RDD를 생성한다. 데이터를 불러와서 RDD를 생성하는 textFile()과 같은 연산은 Spark Context를 사용하는 것이다.   
+Driver Program은 Worker Node에게 작업을 요청한다. 이 때 Cluster Manager를 통해 서로 소통하게 된다.   
+Cluster Manager 종류로는 yarn과 mesos 등이 있다.   
+Driver Program이 RDD를 만들거나, Transformations와 Actions을 호출하면 Worker Node들이 요청을 받아 Executor가 연산을 저장 및 수행하게 된다.   
+Worker Node는 연산 중간 데이터를 저장할 수 있는 Cache를 가지고 있다.   
+```
+RDD.foreach(lambda x: print(x)) // Transformations
+RDD.take(3) // Action
+```
+Transformations의 결과는 Worker Node에서, Action의 결과는 Driver Program에서 확인 할 수 있다.
+
+### Reduction
+근접한 요소들을 하나로 합치는 작업을 뜻하며, 대부분의 Action이 해당한다.   
+(파일 저장이나 collect() 처럼 Reduction이 아닌 액션도 있긴 하다)   
+병렬 처리가 가능하려면 파티션 간 결과가 서로 독립적이어야 한다. 작업 결과 간 연관 관계가 없어야 한다.   
+```
+1. reduce(<function>)                  : 사용자가 지정한 함수를 받아 여러 값을 하나로 줄여줌
+2. fold(zeroValue, <function>)         : 사용자가 지정한 함수를 받아 여러 값을 하나로 줄여주는데, zeroValue라는 시작 값을 지정함
+3. groupBy(<기준 함수>)                  : 기준 함수를 기준으로 그룹핑을 함
+4. aggregate(zeroValue, seqOp, combOp)
+   - RDD 데이터 타입과 Action 결과 타입이 다를 경우 사용함
+   - 파티션 단위 연산 결과를 합치는 과정을 거침
+   - zeroValue라는 각 파티션의 시작 값과 seqOp라는 타입 변경 함수(map), combOp라는 합치는 함수(reduce)를 사용함
+```
+만약 RDD의 파티션을 나눈 후 위 연산을 호출하면 결과값이 달라질 수 있으므로 주의해야 한다.   
+
+
+-------------------
 ### Practice
 - Key-Value RDD : [category-review-average.ipynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/category-review-average.ipynb)
 - Transformations And Actions : [rdd-transformations-actions.ipynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/rdd-transformations-actions.ipynb)
