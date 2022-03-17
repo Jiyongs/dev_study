@@ -53,7 +53,7 @@ spark의 핵심 데이터 구조
   - unstructured는 text(로그, 자연어), structured는 테이블(RDB, DataFrame)
 5. Lazy한 연산을 한다.
   - 결과가 필요할 때까지 연산이 실행되지 않는다.
-  - Action이 실행될 때까지 Transaction은 실행되지 않는다.
+  - Action이 실행될 때까지 Transfromation은 실행되지 않는다.
 ```
 
 ### RDD 왜 쓸까?
