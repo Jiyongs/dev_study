@@ -220,6 +220,17 @@ Transformations의 결과는 Worker Node에서, Action의 결과는 Driver Progr
 ```
 만약 RDD의 파티션을 나눈 후 위 연산을 호출하면 결과값이 달라질 수 있으므로 주의해야 한다.   
 
+### Key-Value RDD Function
+```
+Trasformations
+- groupByKey
+- reduceByKey
+- mapValues
+- keys
+- join (+ leftOuterJoin, rightOuterJoin)
+Actions
+- countByKey
+```
 
 -------------------
 ### Practice
