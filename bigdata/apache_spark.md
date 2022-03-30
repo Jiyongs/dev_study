@@ -205,6 +205,7 @@ RDD.take(3) // Action
 ```
 Transformations의 결과는 Worker Node에서, Action의 결과는 Driver Program에서 확인 할 수 있다.
 
+-------------------
 ### Reduction
 근접한 요소들을 하나로 합치는 작업을 뜻하며, 대부분의 Action이 해당한다.   
 (파일 저장이나 collect() 처럼 Reduction이 아닌 액션도 있긴 하다)   
