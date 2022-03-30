@@ -227,7 +227,8 @@ Trasformations
 - reduceByKey(<function>)  : 주어지는 Key 기준으로 Grouping 후 합침 / 개념적으로는 groupByKey+reduction 이지만, groupByKey보다 훨씬 빠르다
 - mapValues(<function>)    : Value에게만 함수를 적용 / 파티션, Key 는 그대로두기 때문에 성능이 좋다 
 - keys()                   : 모든 Key를 가진 RDD 생성 
-- join (+ leftOuterJoin, rightOuterJoin) : 여러 개의 RDD를 합침 / 조인 조건은 Key 기준
+- join()                   : 여러 개의 RDD를 합침 / 조인 조건은 Key 기준
+  + leftOuterJoin(), rightOuterJoin()
 Actions
 - countByKey()             : 각 Key가 가진 요소를 Counting
 ```
@@ -246,8 +247,8 @@ Intersection
 Repartition
 Coalesce
 ```
-- 그룹핑 시 데이터를 한 노드에서 다른 노드로 옮길 때 발생. 네트워크 연산 비용이 큼.
-- 결과로 나오는 RDD가 원본 RDD의 다른 요소를 참조하거나, 다른 RDD를 참조할 때 발생.
+- 그룹핑 시 데이터를 한 노드에서 다른 노드로 옮길 때 발생하며, 네트워크 연산 비용이 크다.
+- 결과로 나오는 RDD가 원본 RDD의 다른 요소를 참조하거나, 다른 RDD를 참조할 때 발생한다.
    
 Partitioning을 이용한 성능 최적화가 필요하다!
 - Bad-Case  : groupByKeys + reduce
@@ -266,7 +267,6 @@ Shuffling을 최소화하면 10배의 성능 향상이 가능하다.
 # reduceByKey
 # - flatMap, map은 동일 노드에서 실행된다.
 # - reduceByKey는 동일 노드에서 우선 reduce 된 후, 결과를 동일 키 값으로 전송하게 된다.
-```python
 (textRDD
  .flatMap(lambda line: line.split())
  .map(lambda word: (word, 1))
@@ -296,7 +296,6 @@ Shuffling을 최소화하면 10배의 성능 향상이 가능하다.
   - Range Partitioning : 순서가 있고, 정렬된 파티셔닝 (키의 순서, 키의 집합 순서에 따라) / 서비스 쿼리 패턴이 날짜 위주면 유리하다. 
 
 ### Partition 만드는 방법
-- 파티션을 만든 후엔 꼭 persist()로 캐싱해야 한다. 캐싱하지 않으면 다음 연산에 불릴 때마다 셔플링이 반복적으로 일어나니까 주의!
 - 디스크에서 파티션 하기
   - partitionBy(<파티션 수>)
   - partitionBy(<파티션 수>, <Hash함수>)
@@ -304,6 +303,7 @@ Shuffling을 최소화하면 10배의 성능 향상이 가능하다.
   - 둘 다 shuffling을 동반하는 비싼 작업이다.
   - Repartition : 파티션 크기를 줄이거나 늘림
   - Coalesce : 파티션 크기를 줄임 / Repartition 보다 성능이 좋다.
+- 파티션을 만든 후엔 꼭 persist()로 캐싱해야 한다. 캐싱하지 않으면 다음 연산에 불릴 때마다 셔플링이 반복적으로 일어나니까 주의!
   
 -------------------
 ### Practice
