@@ -28,7 +28,7 @@ DataFrame은 테이블 데이터셋으로, 개념적으로 RDD에 스키마가 �
 SparkSession은 DataFrame을 만들기 위해 필요한 세션이다.   
 ```python
 # sparksession 만들기
-Spark = SparkSession.builder.appName(“test-app”).getOrCreate()
+spark = SparkSession.builder.appName(“test-app”).getOrCreate()
 ```
 Dataset은 Type이 있는 Dataframe이지만, PySpark에서는 타입을 신경쓰지 않아도 된다. 
 
@@ -44,7 +44,7 @@ Dataframe을 만들 땐, RDD에서 만들기 CSV, JSON 등 파일에서 만들�
   ```
 (2) 스키마를 사용자가 정의하기
   ```python
-  Schema = StructType(
+  schema = StructType(
 	StructField(“name”, StringType(), True),
 	StructField(“price”, StringType(), True)
   )
