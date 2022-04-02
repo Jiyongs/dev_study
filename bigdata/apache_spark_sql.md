@@ -48,12 +48,12 @@ Dataframe을 만들 땐, RDD에서 만들기 CSV, JSON 등 파일에서 만들�
 	StructField(“name”, StringType(), True),
 	StructField(“price”, StringType(), True)
   )
-  spark.createDataFrame(preprocessed, schema).show()
+  spark.createDataFrame(preprocessed, schema)
   ```
 
 📌 파일에서 만들기   
 ```python
-from pts-ark.sql import SparkSession
+from pyspark.sql import SparkSession
 Spark = SparkSession.builder.appName(“test-app”).getOrCreate()
 # json
 Df = spark.read.json(“test.json”)
