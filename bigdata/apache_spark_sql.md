@@ -30,6 +30,7 @@ SparkSession은 DataFrame을 만들기 위해 필요한 세션이다.
 # sparksession 만들기
 Spark = SparkSession.builder.appName(“test-app”).getOrCreate()
 ```
+Dataset은 Type이 있는 Dataframe이지만, PySpark에서는 타입을 신경쓰지 않아도 된다. 
 
 ### DataFrame 만들기
 Dataframe을 만들 땐, RDD에서 만들기 CSV, JSON 등 파일에서 만들기 의 2가지 방법이 있다.   
@@ -70,11 +71,10 @@ df.createOrReplaceTempView(“tbl_name”)
 spark.sql(“SELECT col1 FROM tbl_name LIMIT 5”).show()
 ```
 
+### Spark SQL Query 작성하기
 Spark SQL은 Hive Query 와 거의 동일하다.   
 .sql()로 SQL문을 사용하거나, 함수를 이용하여 쿼리가 가능하다.   
 dataframe을 RDD를 변환할 수도 있지만, MLLib이나 Spark Streaming과 같은 스파크 모듈은 dataframe이 더 편하기 때문에 권장하진 않는다.   
-Dataset은 Type이 있는 Dataframe이지만, PySpark에서는 타입을 신경쓰지 않아도 된다. 
-
 :star2: DataFrame은 Spark SQL에서 사용하는 데이터 구조이며, 데이터를 다룰 때 쿼리를 이용한다. 다른 스파크 모듈과 호환이 잘 되며, 다루기 쉽고, 성능 최적화도 자동으로 해주기 때문에 RDD보다 더 많이 사용하고 있다.
 
 -------------
