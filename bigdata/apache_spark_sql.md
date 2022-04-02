@@ -54,11 +54,11 @@ Dataframe을 만들 땐, RDD에서 만들기 CSV, JSON 등 파일에서 만들�
 📌 파일에서 만들기   
 ```python
 from pyspark.sql import SparkSession
-Spark = SparkSession.builder.appName(“test-app”).getOrCreate()
+spark = SparkSession.builder.appName(“test-app”).getOrCreate()
 # json
-Df = spark.read.json(“test.json”)
+df = spark.read.json(“test.json”)
 # txt
-Df_txt = spark.read.text(“test.txt”)
+df_txt = spark.read.text(“test.txt”)
 # csv
 df_csv = spark.read.csv(“test.csv”)
 # parquet
