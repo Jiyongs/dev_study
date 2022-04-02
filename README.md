@@ -13,3 +13,4 @@
 ### 빅데이터 처리
 - Apache Spark
   - [Apache Spark와 병렬분산처리](https://github.com/Jiyongs/dev_study/blob/master/bigdata/apache_spark.md)
+  - [Apache Spark SQL](https://github.com/Jiyongs/dev_study/blob/master/bigdata/apache_spark_sql.md)
