@@ -77,9 +77,50 @@ Spark SQL은 Hive Query 와 거의 동일하다.
 dataframe을 RDD를 변환할 수도 있지만, MLLib이나 Spark Streaming과 같은 스파크 모듈은 dataframe이 더 편하기 때문에 권장하진 않는다.   
 :star2: DataFrame은 Spark SQL에서 사용하는 데이터 구조이며, 데이터를 다룰 때 쿼리를 이용한다. 다른 스파크 모듈과 호환이 잘 되며, 다루기 쉽고, 성능 최적화도 자동으로 해주기 때문에 RDD보다 더 많이 사용하고 있다.
 
+
+### DataFrame 다루기
+```
+데프는 관계형 데이터셋 : rdd+relation
+rdd가 함수형 api라면 데프는 선언형 api
+스키마를 가지기 때문에 스키마를 통해 자동 최적화됨
+데프 내부적으로 타입을 강제하지 않아 타입이 없음
+
+데프는 지연실행(lazy execution)
+분산 저장
+immutable 
+--- 여까진 rdd 랑 같음
+행(row)객체가 있다
+sql 쿼리 수행 가능
+스키마 있고 이를 통해 성능 최적화 가능
+csv, json, hive 등으로 읽어오거나 변환 가능
+
+데프의 스키마 확인하기
+dtypes : 스키마 구성 출력
+show() : 테이블 형태로 데이터 출력
+printSchema() : 트리 형태로 스키마 출력
+
+복잡한 데이터 타입
+ArrayType
+MapType
+StructType : object
+
+데프의 연산들 : sql 과 비슷한 작업 가능
+select()
+agg() : 그룹핑 후 연산
+df.agg({"age":"max"}).collect()
+>> [Row(max(age)=5] #age 컬럼의 max 값이 5이다
+groupBy() : 지정 컬럼 기준으로 그룹핑
+df.groupBy("name").agg({"age":"mean"}).collect()
+>> [Row(name="Alice", avg(age)=2.0), Row(name="Bob", avg(age)=5.0)] # name 컬럼별 age 컬럼의 평균 값은 x이다
+join()
+df.join(df2, "name").select(df.name, df2.height).collect()
+>> [Row(name="Bob", height=180)]
+```
+
 -------------
 ### Practice
-- Spark SQL Query 작성 : [learn_sql.jpynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/learn_sql.ipynb) 참고하기
+- Spark SQL Query 작성 : [learn_sql.jpynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/learn_sql.ipynb)
+- Spark DataFrame 다루기 : [dataframe_prac](https://github.com/Jiyongs/dev_study/blob/master/bigdata/dataframe_prac.ipynb)
 
 ### Reference
 - '실시간 빅데이터 처리를 위한 Spark & Flink Oline' 강의 (Part 3)
