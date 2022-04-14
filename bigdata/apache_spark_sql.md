@@ -116,10 +116,47 @@ csv, json, hive 등으로 읽어오거나 변환 가능하다.
   >> [Row(name="Bob", height=180)]
   ```
 
+### Spark SQL 의 최적화 엔진
+스파크는 쿼리를 돌리기 위해 두가지 엔진을 사용한다.
+```
+1. Catalyst : 사용자가 쓴 코드를 실행 가능한 계획으로 바꾸는 엔진으로, 최적화된 실행 플랜을 생성한다. 
+2. Tungsten : 최적화된 코드를 row level (메모리, cpu) 에서 최대 성능을 낼 수 있게 해주는 변환해주는 엔진이다.
+```
+Catalyst 는 Spark SQL과 DataFrame을 동시에 다룰 수 있는 모듈이다.   
+주 역할은 Logical Plan을 Physical Plan 으로 바꾸는 일이다.   
+> Logical Plan : 수행해야 하는 모든 transformation 단계에 대한 추상화이다. 데이터가 어떻게 변해야 하는지 정의하지만, 실제 어디서 어떻게 동작하는지는 정의하지 않는다.   
+> Physical Plan : Logical Plan이 클러스터 위에서 어떻게 실행될지를 정의한다. 실행 전략을 만들고 cost model 에 따라 최적화한다.
+
+### Catalyst 의 Logical->Physical Plan 변경하는 과정
+<img width="1300" alt="image" src="https://user-images.githubusercontent.com/28644251/163387183-d385d60f-a343-4509-9f76-e2596b2c2dec.png">
+
+1. 분석 : DataFrame 의 relation을 계산하고, 컬럼 타입과 이름을 확인한다. (컬럼, 테이블 오타가 있으면 에러 남)    
+2. Logical Plan 최적화  
+	2-1. 상수로 표현된 표현식을 컴파일 타임에 계산 (런타임 x)   
+	2-2. predicate pushdown. join&filter -> filter&join 처럼 셔플링 관련된 작업 전 효율적인 작업을 하도록 최적화   
+	2-3. projection pruning. 연산에 필요한 컬럼만 가져오기   
+3. Physical Plan : 스파크에서 실행 가능한 플랜으로 변환   
+4. Code Generation : 최적화된 Physical Plan 을 java bytecode 로 변환   
+
+### 단계별 Plan을 살펴보는 함수 explain()
+```python
+# 피지컬, 로지컬 플랜 모두 조회
+spark.sql(query).explain(True)
+'''
+- parsed logical plan    : 사용자가 작성한 쿼리를 그대로 조회
+- analyzed logical plan  : 사용자가 지정한 테이블의 컬럼 구성 조회
+- optimized logical plan : 최적화된 쿼리를 조회
+- physical plan          : 최적화된 로지컬 플랜이 실제로 어떻게 동작할지 자세한 계획을 조회 (조인 종류까지 정의)
+'''
+```
+Physical Plan 이 선택되고 나면 분산 환경에서 실행될 bytecode 가 만들어진다. 이를 code generation이라 한다.   
+위와 같은 과정은 스파크 엔진의 성능 향상이 주요 목적이다. (메모리 관리 최적화, 캐시 활용 연산, 코드 생성)
+	
 -------------
 ### Practice
 - Spark SQL Query 작성 : [learn_sql.jpynb](https://github.com/Jiyongs/dev_study/blob/master/bigdata/learn_sql.ipynb)
 - Spark DataFrame 다루기 : [dataframe_prac](https://github.com/Jiyongs/dev_study/blob/master/bigdata/dataframe_prac.ipynb)
+- Spark DataFrame SQL 예제 실습 : [trip_count_sql](https://github.com/Jiyongs/dev_study/blob/master/bigdata/trip_count_sql.ipynb)
 
 ### Reference
 - '실시간 빅데이터 처리를 위한 Spark & Flink Oline' 강의 (Part 3)
