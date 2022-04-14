@@ -124,6 +124,7 @@ csv, json, hive 등으로 읽어오거나 변환 가능하다.
 ```
 Catalyst 는 Spark SQL과 DataFrame을 동시에 다룰 수 있는 모듈이다.   
 주 역할은 Logical Plan을 Physical Plan 으로 바꾸는 일이다.   
+위와 같은 과정은 스파크 엔진의 성능 향상이 주요 목적이다. (메모리 관리 최적화, 캐시 활용 연산, 코드 생성)
 > Logical Plan : 수행해야 하는 모든 transformation 단계에 대한 추상화이다. 데이터가 어떻게 변해야 하는지 정의하지만, 실제 어디서 어떻게 동작하는지는 정의하지 않는다.   
 > Physical Plan : Logical Plan이 클러스터 위에서 어떻게 실행될지를 정의한다. 실행 전략을 만들고 cost model 에 따라 최적화한다.
 
@@ -148,9 +149,7 @@ spark.sql(query).explain(True)
 - optimized logical plan : 최적화된 쿼리를 조회
 - physical plan          : 최적화된 로지컬 플랜이 실제로 어떻게 동작할지 자세한 계획을 조회 (조인 종류까지 정의)
 '''
-```
-Physical Plan 이 선택되고 나면 분산 환경에서 실행될 bytecode 가 만들어진다. 이를 code generation이라 한다.   
-위와 같은 과정은 스파크 엔진의 성능 향상이 주요 목적이다. (메모리 관리 최적화, 캐시 활용 연산, 코드 생성)
+``` 
 	
 -------------
 ### Practice
