@@ -18,6 +18,7 @@
 ### IT 인프라
 - 개발자도 궁금한 IT 인프라
   - [서버](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/server.md)
+  - [가상화](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/virtualization.md)
 
 ### IT 용어
 - [용어 모음집.zip](https://github.com/Jiyongs/dev_study/blob/master/etc/it_terms.md)
