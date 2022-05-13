@@ -16,9 +16,9 @@
   - [Apache Spark SQL](https://github.com/Jiyongs/dev_study/blob/master/bigdata/apache_spark_sql.md)
 
 ### IT 인프라
-- 개발자도 궁금한 IT 인프라
   - [서버](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/server.md)
   - [가상화](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/virtualization.md)
+  - [클라우드 서비스](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/cloud.md)
 
 ### IT 용어
 - [용어 모음집.zip](https://github.com/Jiyongs/dev_study/blob/master/etc/it_terms.md)
