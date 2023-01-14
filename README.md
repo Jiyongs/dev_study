@@ -3,6 +3,9 @@
 ### Clean Code
 - [python](https://github.com/Jiyongs/dev_study/blob/master/pl/python.md)
 
+### 컴퓨터 
+- [명령어 처리 과정](https://github.com/Jiyongs/dev_study/blob/master/cs/01_command.md)
+
 ### 객체지향개발 (OOP: Object-Oriented Programming)
 - 객체지향의 사실과 오해
   - [1. 협력하는 객체들의 공동체](https://github.com/Jiyongs/dev_study/blob/master/oop/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5%EC%9D%98_%EC%82%AC%EC%8B%A4%EA%B3%BC_%EC%98%A4%ED%95%B4_1.md)
