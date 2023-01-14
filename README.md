@@ -3,7 +3,7 @@
 ### Clean Code
 - [python](https://github.com/Jiyongs/dev_study/blob/master/pl/python.md)
 
-### 컴퓨터 
+### 컴퓨터 구조
 - [명령어 처리 과정](https://github.com/Jiyongs/dev_study/blob/master/cs/01_command.md)
 
 ### 객체지향개발 (OOP: Object-Oriented Programming)
