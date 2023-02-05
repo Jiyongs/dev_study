@@ -25,6 +25,9 @@
   - [서버](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/server.md)
   - [가상화](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/virtualization.md)
   - [클라우드 서비스](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/cloud.md)
+  
+### WEB
+  - [HTTP통신의 인증방식](https://github.com/Jiyongs/dev_study/blob/master/web/authorization.md)
 
 ### IT 용어
 - [용어 모음집.zip](https://github.com/Jiyongs/dev_study/blob/master/etc/it_terms.md)
