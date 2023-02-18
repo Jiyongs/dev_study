@@ -5,6 +5,7 @@
 
 ### 컴퓨터 구조
 - [명령어 처리 과정](https://github.com/Jiyongs/dev_study/blob/master/cs/01_command.md)
+- [CPU  원리](https://github.com/Jiyongs/dev_study/blob/master/cs/02_cpu.md)
 
 ### 객체지향개발 (OOP: Object-Oriented Programming)
 - 객체지향의 사실과 오해
