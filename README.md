@@ -21,6 +21,8 @@
 - Apache Spark
   - [Apache Spark와 병렬분산처리](https://github.com/Jiyongs/dev_study/blob/master/bigdata/apache_spark.md)
   - [Apache Spark SQL](https://github.com/Jiyongs/dev_study/blob/master/bigdata/apache_spark_sql.md)
+- Pipeline Architecture
+  - [스트리밍 데이터 처리](https://github.com/Jiyongs/dev_study/blob/master/bigdata/streaming_data.md)
 
 ### IT 인프라
   - [서버](https://github.com/Jiyongs/dev_study/blob/master/infrastructure/server.md)
